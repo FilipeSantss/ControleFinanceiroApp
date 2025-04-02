@@ -1,0 +1,44 @@
+﻿@model ControleFinanceiro.Models.Despesa
+
+<h1>Editar Despesa</h1>
+<link rel="stylesheet" href="/css/site.css">
+@if (TempData["Erro"] != null)
+
+
+
+{
+    <div class="alert alert-danger">
+        @TempData["Erro"]
+    </div>
+}
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Data" class="form-label">Data</label>
+        <input asp-for="Data" class="form-control" type="date" />
+        <span asp-validation-for="Data" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Valor" class="form-label">Valor</label>
+        <input asp-for="Valor" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="Valor" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Categoria" class="form-label">Categoria</label>
+        <input asp-for="Categoria" class="form-control" />
+        <span asp-validation-for="Categoria" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Descricao" class="form-label">Descrição</label>
+        <input asp-for="Descricao" class="form-control" />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

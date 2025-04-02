@@ -1,0 +1,16 @@
+﻿@model ControleFinanceiro.Models.Entrada
+
+<h2>Confirmar Exclusão</h2>
+<p>Você realmente deseja excluir esta entrada?</p>
+
+<div>
+    <h4>Descrição: @Model.Descricao</h4>
+    <p><strong>Valor:</strong> R$ @Model.Valor</p>
+    <p><strong>Data:</strong> @Model.Data.ToShortDateString()</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

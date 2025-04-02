@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ControleFinanceiro.Models.Despesa>
+<h1>Lista de Despesas</h1>
+
+<link rel="stylesheet" href="/css/site.css">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Categoria</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var despesa in Model)
+
+
+
+        {
+            <tr>
+                <td>@despesa.Data.ToShortDateString()</td>
+                <td>R$ @despesa.Valor.ToString("F2")</td>
+                <td>@despesa.Categoria</td>
+                <td>@despesa.Descricao</td>
+                <td>
+                    <a href="/Despesas/Edit/@despesa.Id" class="btn btn-sm btn-warning">Editar</a>
+
+                    <!-- Botão para abrir o modal -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir-@despesa.Id">
+                        Excluir
+                    </button>
+
+                    <!-- Modal de confirmação -->
+                    <div class="modal fade" id="modalExcluir-@despesa.Id" tabindex="-1" aria-labelledby="modalLabel-@despesa.Id" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalLabel-@despesa.Id">Confirmação de Exclusão</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Tem certeza que deseja excluir a despesa de <strong>@despesa.Descricao</strong>?
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="/Despesas/ExcluirDespesa" method="post">
+                                        <input type="hidden" name="id" value="@despesa.Id" />
+                                        <button type="submit" class="btn btn-danger">Sim, Excluir</button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Despesas/Create" class="btn btn-primary">Adicionar Nova Despesa</a>
+<a href="/Home/Index" class="btn btn-secondary">Voltar</a>

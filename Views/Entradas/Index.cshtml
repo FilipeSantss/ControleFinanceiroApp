@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ControleFinanceiro.Models.Entrada>
+
+<h1 class="mb-4">Lista de Entradas</h1>
+
+<!-- Link para o CSS Personalizado -->
+<link rel="stylesheet" href="/css/site.css">
+
+<!-- Tabela de Entradas -->
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>Categoria</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entrada in Model)
+        {
+            <tr>
+                <td>@entrada.Data.ToShortDateString()</td>
+                <td>R$ @entrada.Valor.ToString("F2")</td>
+                <td>@entrada.Categoria</td>
+                <td>@entrada.Descricao</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@entrada.Id" class="btn btn-sm btn-danger">Excluir</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botões para Adicionar e Voltar -->
+<div class="mt-3">
+    <a href="/Entradas/Create" class="btn btn-primary me-2">Adicionar Nova Entrada</a>
+    <a href="/Home/Index" class="btn btn-secondary">Voltar</a>
+</div>
