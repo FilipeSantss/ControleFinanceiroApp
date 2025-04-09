@@ -41,31 +41,21 @@ namespace ControleFinanceiro.Controllers {
             return View(despesa);
 
         }
-        [HttpPost]
-        public IActionResult ExcluirDespesa(int id) {
-          string connectionString = _context.Database.GetDbConnection().ConnectionString;
+       [HttpPost]
+public IActionResult ExcluirDespesa(int id) {
+    var despesa = _context.Despesas.FirstOrDefault(d => d.Id == id);
+    if (despesa == null)
+    {
+        TempData["Erro"] = "Despesa não encontrada!";
+        return RedirectToAction("Index");
+    }
 
-            try
-            {
-                using (MySqlConnection conn = new MySqlConnection(connectionString))
-                {
-                    string query = "DELETE FROM despesas WHERE id = @id";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@id", id);
+    _context.Despesas.Remove(despesa);
+    _context.SaveChanges();
 
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-
-                TempData["Mensagem"] = "Despesa excluída com sucesso!";
-            }
-            catch (Exception ex)
-            {
-                TempData["Erro"] = $"Ocorreu um erro: {ex.Message}";
-            }
-
-            return RedirectToAction("Index");
-        }
+    TempData["Mensagem"] = "Despesa excluída com sucesso!";
+    return RedirectToAction("Index");
+}
 
         public IActionResult Edit(int id) {
             // Busca a despesa no banco de dados pelo ID
