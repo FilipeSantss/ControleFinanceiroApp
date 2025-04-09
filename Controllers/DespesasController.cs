@@ -40,7 +40,7 @@ namespace ControleFinanceiro.Controllers {
         }
         [HttpPost]
         public IActionResult ExcluirDespesa(int id) {
-            string connectionString = "Server=localhost;Database=ControleFinanceiro;Uid=root;Pwd=S13210410s@;";
+            string connectionString = "server=caboose.proxy.rlwy.net;port=59800;database=railway;uid=root;pwd=YGCgieczbppztfOUjzUlBcrjYidlhCbE";
 
             try
             {
